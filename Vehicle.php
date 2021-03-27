@@ -4,17 +4,46 @@
 
 class Vehicle
 {
+    public const ALLOWED_ENERGIES = [
+        'fuel',
+        'electric',
+    ];
  
     protected string $color;
-    protected int $currentSpeed;
+    protected int $currentSpeed = 0;
     protected int $nbSeats;
     protected int $nbWheels;
     protected bool $start = false;
+    protected string $energy;
+    protected int $energyLevel;
 
     public function __construct(string $color, int $nbSeats)
     {
         $this->color = $color;
         $this->nbSeats = $nbSeats;
+    }
+
+    public function getEnergy(): string
+    {
+        return $this->energy;
+    }
+
+    public function setEnergy(string $energy): Vehicle
+    {
+        if (in_array($energy, self::ALLOWED_ENERGIES)) {
+            $this->energy = $energy;
+        }
+        return $this;
+    }
+
+    public function getEnergyLevel(): int
+    {
+        return $this->energyLevel;
+    }
+
+    public function setEnergyLevel(int $energyLevel): void
+    {
+        $this->energyLevel = $energyLevel;
     }
 
     public function start (): string
@@ -30,7 +59,9 @@ class Vehicle
 
     public function forward(): string
     {
-        $this->currentSpeed = 15;
+        if ($this->currentSpeed === 0) {
+            $this->currentSpeed = 15;
+        }
         return "Go !";
     }
 
@@ -39,7 +70,7 @@ class Vehicle
         $sentence = "";
         while ($this->currentSpeed > 0) {
             $this->currentSpeed--;
-            $sentence .= "Brake !!!";
+            $sentence .= "Brake !!! ";
         }
 
         $sentence .= "I'm stopped !";

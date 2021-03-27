@@ -2,6 +2,7 @@
 
 require_once 'Bicycle.php';
 require_once 'Car.php';
+require_once 'Truck.php';
 
 $bike = new Bicycle('blue', 1);
 $bike->setColor = 'blue';
@@ -18,11 +19,30 @@ echo '<br>' . $bike->start();
 echo '<br><br>';
 
 $car = new Car('green', 4, 'electric');
+$car->setCurrentSpeed(80);
 echo $car->start() . '<br>';
 echo $car->forward();
-echo '<br> car speed : ' . $car->getCurrentSpeed() . ' km/h' . '<br>';
+echo '<br> Car speed : ' . $car->getCurrentSpeed() . ' km/h' . '<br>';
 echo $car->brake();
-echo '<br> car speed : ' . $car->getCurrentSpeed() . ' km/h' . '<br>';
+echo '<br> Car speed : ' . $car->getCurrentSpeed() . ' km/h' . '<br>';
 echo $car->brake();
 echo '<br>' . $car->start();
+
+echo '<br><br>';
+
+$truck = new Truck(100, 'pink', 6, 'fuel');
+$truck->setCurrentSpeed(80);
+echo $truck->start() . '<br>';
+echo $truck->forward();
+echo '<br> Truck speed : ' . $truck->getCurrentSpeed() . ' km/h' . '<br>';
+echo $truck->brake();
+echo '<br> Truck speed : ' . $truck->getCurrentSpeed() . ' km/h' . '<br>';
+echo $truck->brake();
+echo '<br>';
+for ($i = $truck->getLoading(); $i <= $truck->getStockageCapacity(); $i+=10) {
+    $truck->setLoading($i);
+    echo $truck->getLoading() . '% loaded truck<br>';    
+    echo $truck->truckFill() . '<br>';
+}
+echo $truck->start();
 
